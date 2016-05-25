@@ -33,7 +33,7 @@ Show News & RSS Feeds
     'website': 'http://www.credativ.in',
     'sequence':0,
     'depends': ['base', 'web', 'mail'],
-    'images':['images/news_feeds.png'],
+    'images':['images/news_feeds1.png'],
     'data': [
         'views/news_feeds.xml',
         'news_feeds_view.xml',

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vim:fdn=3:
+-->
+<openerp>
+    <data>
+        <template id="assets_backend_news_feeds1" name="news feeds temp1" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+
+                <link rel="stylesheet" href="/news_feeds/static/src/css/example_ticker.css"/>
+                <link rel="stylesheet" href="/news_feeds/static/src/css/style.css"/>
+		<script type="text/javascript" src="/news_feeds/static/src/js/jquery_003.js"></script>
+		<script type="text/javascript" src="/news_feeds/static/src/js/jquery_002.js"></script>
+                <script type="text/javascript" src="/news_feeds/static/src/js/news_feeds.js"></script>
+                <script type="text/javascript" src="/news_feeds/static/src/js/news.js"></script>
+                <script type='text/javascript' src='/news_feeds/static/src/js/jquery.marquee.min.js'></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

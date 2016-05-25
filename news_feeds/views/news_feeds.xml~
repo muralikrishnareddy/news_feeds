@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vim:fdn=3:
+-->
+<openerp>
+    <data>
+        <template id="assets_backend" name="mail assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/news_feeds/static/src/css/style.css"/>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" />
+		<script type="text/javascript" src="/news_feeds/static/src/js/jsapi.js"></script>
+		<script type="text/javascript" src="/news_feeds/static/src/js/support.js"></script>
+                <script type="text/javascript" src="/news_feeds/static/src/js/news_feeds.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

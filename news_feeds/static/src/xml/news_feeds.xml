@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim:fdl=1:
+-->
+ 
+<templates id="template" xml:space="preserve">  
+    <!-- 
+        wall main template
+        Template used to display the communication history in the wall.
+        -->
+    <t t-extend="mail.wall.sidebar">
+        <t t-jquery=".oe_mail_wall_sidebar" t-operation="prepend">
+         <html>
+      <head>      
+      <title>News &amp; RSS Feeds</title>
+      <link rel="shortcut icon" href="/website_account/static/src/img/favicon.ico" type="image/x-icon"/>
+        <t t-call-assets="web.assets_common" t-css="false"/>
+        <t t-call-assets="web.assets_backend" t-css="false" />
+        <link rel="stylesheet" href="/news_feeds/static/src/css/example_ticker.css"/>
+                <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
+		<script type="text/javascript" src="/news_feeds/static/src/js/jquery_003.js"></script>
+		<script type="text/javascript" src="/news_feeds/static/src/js/jquery_002.js"></script>
+		<script type='text/javascript' src='/news_feeds/static/src/js/jquery.marquee.min.js'></script>
+        <script type="text/javascript" id="loading-script-bs" t-raw="init">
+            $(function() {
+            
+            var wc = new openerp.web.Model("news.feeds");
+            wc.get_func("search_read")([['name', '!=', '']], ['name','count']).then(function(res) {
+            $('.news_scroll').empty();
+            cnt = 0;
+            for(var i = 0; i &lt; res.length; i++){
+            
+            url='http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&amp;callback=?&amp;q='+res[i]['name']+'&amp;num='+res[i]['count']+''
+            $.getJSON(url + "&amp;output=json", function(b) {
+                if (200 == b.responseStatus) {
+                    var f = b.responseData;//alert(JSON.stringify(f));
+                    if (f['feed']!=undefined){
+                    if (f['feed']['entries']!=undefined){
+                        var data = f['feed']['entries']; 
+                           cnt++;                    
+                        for(var len = 0; len &lt; data.length; len++){
+                        if(cnt===1 &amp;&amp; len==0)
+                        {  
+                        if($.browser.mozilla!=undefined)
+                          {
+                            scrollamount='scrollamount';
+                            var mar ='&lt;marquee direction="up" behavior="scroll" scrollamount="3" onmouseover="this.setAttribute(scrollamount, 0, 0);" onmouseout="this.setAttribute(scrollamount, 3, 0);"  width="246" id="marquee_news_feeds" &gt;';
+                            $('.news_scroll').append($(mar));
+                          }
+                          else
+                          {
+                            var mar ='&lt;marquee direction="up" behavior="scroll" scrollamount="3" onmouseover="this.stop();" onmouseout="this.start();"  height="300" width="246" id="marquee_news_feeds" &gt;';
+                            $('.news_scroll').append($(mar));
+                          }   
+                           
+                        }                        
+                        content = '&lt;div class="news_box"&gt;\
+                        &lt;p style="color:#0074c5" align="center" id="head_dir"&gt;&lt;a href="'+data[len]['link']+'" target="_blank"&gt;'+data[len]['title']+'&lt;/a&gt;&lt;/p&gt;\
+                        &lt;p&gt;'+data[len]['publishedDate'].split(' -')[0]+'&lt;/p&gt;\
+                        &lt;p&gt;'+data[len]['contentSnippet']+'&lt;/p&gt;\
+                        &lt;p&gt;\
+                        &lt;a href="'+data[len]['link']+'" target="_blank"&gt;Read more &gt;&gt; &lt;/a&gt;\
+                        &lt;/p&gt;&lt;/div&gt;';
+                        $('#marquee_news_feeds').append($(content));
+                        //alert(document.getElementById('news_div').innerHTML);
+                        
+                        }
+                        
+                    }
+                    }
+                        
+		}});
+
+            }
+            
+            }); 
+            
+            });
+            
+            
+        </script>
+      </head>  
+<body>
+<div class="title_news">
+                  	   News Updates
+	</div>
+	<div class="news_scroll" id="news_div">
+	</div>
+	<div class="scroll_space">
+	</div>
+    </body>      
+        </html>
+        </t>
+    </t>
+</templates>
+

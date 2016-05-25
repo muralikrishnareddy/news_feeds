@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim:fdl=1:
+-->
+ 
+<templates id="template" xml:space="preserve">  
+<template id="assets_backend" inherit_id="web.assets_backend" name="News Feeds">
+    <xpath expr="." position="inside">
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="/news_feeds/static/src/js/news_feeds.js"></script>
+    </xpath>
+  </template> 
+        <t t-call-assets="web.assets_common" t-css="false"/>
+        <t t-call-assets="web.assets_backend" t-css="false" />
+<script src="/news_feeds/static/src/js/news_feeds.js"></script>
+    <!-- 
+        wall main template
+        Template used to display the communication history in the wall.
+        -->
+    <t t-extend="mail.wall.sidebar">
+        <t t-jquery=".oe_mail_wall_sidebar" t-operation="prepend">
+            <div id="container">
+               <div id="header">
+                  <div class="feed_title">News &amp; RSS Feeds</div>
+               </div>
+               <div id="content" class="scroll-pane">
+
+                  <div id="itemlist">
+                  </div><!--#itemlist-->
+
+               </div><!--#content and #flexcroll-->
+               <div id="footer"></div>
+
+           </div><!--#container-->
+        </t>
+    </t>
+ 
+
+</templates>
+

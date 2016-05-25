@@ -1,0 +1,62 @@
+
+                
+                
+               
+                
+
+window.setInterval(function(){
+test();
+}, 50000);
+
+openerp.news_feeds = function(instance, local) {
+    var _t = instance.web._t,
+        _lt = instance.web._lt;
+    var QWeb = instance.web.qweb;
+
+    var MyClass = instance.web.Class.extend({
+    say_hello: function() {
+        
+        alert("hello"+ this.name);
+    },
+    loadFeed: function(url){
+        var feed = new google.feeds.Feed(url); //for multiple urls
+                    feed.includeHistoricalEntries(); //include old stuff
+                    //feed.setNumEntries(15); //number of entries
+                    feed.load(function (result) {
+                        if (!result.error) 
+                        {
+                        
+                            result.feed.entries.forEach(function(entry)
+                            {                                
+                                $('#itemlist').append('<div class="feed_item"><div class="feed_item_title"><a href="'+entry.link+'" target="_blank" rel="nofollow">'+entry.title+'</a></div> <div class="feed_item_description">'+entry.content.substring(0,140)+' ...    </div> <div class="feed_item_date">'+entry.publishedDate+'</div></div>');
+
+                            });
+                           
+                        }
+
+                    });
+    },
+    readURLs: function(){     
+                google.load("feeds", "1"); 
+                alert('1');        
+                if ($(".feed_item > div").length<=0){   
+                alert('2');
+                //init(); 
+                alert('3');
+                ["http://feed.mikle.com/support/rss/", "http://www.credativ.co.uk/credativ-blog.xml", "http://feed.mikle.com/support/rss/"].map(this.loadFeed);
+                }
+   },
+});
+
+var my_object = new MyClass();
+my_object.name = "Bob";
+my_object.say_hello();
+my_object.readURLs();
+}
+
+
+
+
+
+
+
